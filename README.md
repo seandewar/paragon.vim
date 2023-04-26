@@ -65,7 +65,8 @@ plugins); feel free to throw me a pull request to improve any such issues!
 Unlike paramount, the name has no deep meaning. The name was chosen because it
 sounds cool and it begins with the letter "p" like paramount does...
 
-However @3N4N came up with a great alternative interpretation for the name:
+However [@3N4N](https://github.com/3N4N) came up with a great alternative
+interpretation of the name:
 
 > Well paragon means people with high virtue.
 > It's similar, like, in a metaphorical sense. :)
