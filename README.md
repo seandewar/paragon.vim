@@ -6,7 +6,7 @@ My personal minimalistic Vim/Neovim colour scheme based on
 _For those with high virtue._
 
 ![Dark mode](https://user-images.githubusercontent.com/6256228/234618757-11b083ca-b961-435c-8f5f-98061ca0b0b0.png)
-![Light mode](https://user-images.githubusercontent.com/6256228/234618760-b9b44cc8-1722-4414-a712-0dc464f5e1a4.png)
+![Light mode](https://user-images.githubusercontent.com/6256228/234671568-8ee81562-22ce-4f77-80fa-b86aaf0b57d5.png)
 
 Paragon (like paramount), aims to highlight only the important things in code
 (such as keywords, literals, comments, etc.) while not looking too monochrome or
@@ -56,9 +56,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 ```
 
-It may be possible that some highlights objectively suck, or that some plugins
-you use are missing highlights with this theme (as I personally don't use many
-plugins); feel free to throw me a pull request to improve any such issues!
+It may be possible that some highlights objectively suck (especially in light
+mode, as I don't use it much), or that some plugins you use are missing
+highlights with this theme (as I personally don't use many plugins); feel free
+to throw me a pull request to improve any such issues!
 
 ## What's with the name?
 

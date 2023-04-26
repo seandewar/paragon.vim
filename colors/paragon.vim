@@ -31,12 +31,12 @@ if &background ==# 'dark'
     let s:bg_subtle        = #{gui: '#202020', cterm: '234'}
     let s:bg               = #{gui: '#000000', cterm: '0'  }
 else
-    let s:blue             = #{gui: '#4f4fdf', cterm: '63' }
-    let s:orange           = #{gui: '#e57a3a', cterm: '166'}
-    let s:pink             = #{gui: '#e57a7a', cterm: '168'}
-    let s:red              = #{gui: '#e74a4a', cterm: '167'}
+    let s:blue             = #{gui: '#2f2fdf', cterm: '61' }
+    let s:orange           = #{gui: '#d95f1c', cterm: '166'}
+    let s:pink             = #{gui: '#e55a5a', cterm: '167'}
+    let s:red              = #{gui: '#f03c3c', cterm: '196'}
     let s:teal             = #{gui: '#00875f', cterm: '30' }
-    let s:yellow           = #{gui: '#e7af3a', cterm: '178'}
+    let s:yellow           = #{gui: '#e7a03a', cterm: '214'}
 
     let s:norm             = #{gui: '#000000', cterm: '0'  }
     let s:norm_subtle      = #{gui: '#404040', cterm: '238'}
