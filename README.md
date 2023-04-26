@@ -49,7 +49,7 @@ add the following **before** the `colorscheme` command above:
 " Vim script:
 autocmd ColorScheme paragon highlight CursorLine guibg=#ff69b4 ctermbg=13
 
--- Lua:
+-- Neovim Lua:
 vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "paragon",
     command = "highlight CursorLine guibg=#ff69b4 ctermbg=13",
