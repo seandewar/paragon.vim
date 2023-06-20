@@ -289,5 +289,6 @@ highlight! link @lsp.mod.attribute @attribute
 highlight! link @lsp.typemod.variable.constant @constant
 
 call s:h('LspSignatureActiveParameter', #{fg: s:orange})
+highlight! link LspInlayHint Comment
 
 " vim: et tw=80 sw=4
