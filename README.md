@@ -5,8 +5,8 @@ My personal minimalistic Vim/Neovim colour scheme based on
 
 _For those with high virtue._
 
-![Dark mode](https://user-images.githubusercontent.com/6256228/234618757-11b083ca-b961-435c-8f5f-98061ca0b0b0.png)
-![Light mode](https://user-images.githubusercontent.com/6256228/234671568-8ee81562-22ce-4f77-80fa-b86aaf0b57d5.png)
+![Dark mode](https://github.com/seandewar/paragon.vim/assets/6256228/a28053f1-046a-43ff-b965-80674f0cdfb9)
+![Light mode](https://github.com/seandewar/paragon.vim/assets/6256228/a9df29e6-2ea9-4f3c-91d0-74f4597f21e4)
 
 Paragon (like paramount), aims to highlight only the important things in code
 (such as keywords, literals, comments, etc.) while not looking too monochrome or
