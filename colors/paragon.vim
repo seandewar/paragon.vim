@@ -182,6 +182,12 @@ highlight! link diffRemoved DiffDelete
 highlight! link helpHyperTextJump Tag
 highlight! link helpURL Underlined
 
+" javascript.vim
+highlight! link javaScriptFunction Keyword
+highlight! link javaScriptBraces Operator
+highlight! link javaScriptParens Operator
+highlight! link javaScriptValue Constant
+
 " lua.vim
 highlight! link luaFunction Keyword
 
@@ -289,6 +295,6 @@ highlight! link @lsp.mod.attribute @attribute
 highlight! link @lsp.typemod.variable.constant @constant
 
 call s:h('LspSignatureActiveParameter', #{fg: s:orange})
-highlight! link LspInlayHint Comment
+highlight! link LspInlayHint NonText
 
 " vim: et tw=80 sw=4
