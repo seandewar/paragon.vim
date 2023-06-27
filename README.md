@@ -43,7 +43,7 @@ If you think some of the highlights suck, feel free to override them with a
 `ColorScheme` autocommand.
 
 For example, to change the cursor line colour to a very uncomplimentary pink,
-add the following **before** the `colorscheme` command above:
+add the following **before** the `:colorscheme` command above:
 
 ```
 " Vim script:
@@ -60,6 +60,27 @@ It may be possible that some highlights objectively suck (especially in light
 mode, as I don't use it much), or that some plugins you use are missing
 highlights with this theme (as I personally don't use many plugins); feel free
 to throw me a pull request to improve any such issues!
+
+### Neovim's "linking to Normal" priority bug
+
+Nvim has [a long-standing issue](https://github.com/neovim/neovim/issues/9019)
+that may cause unwanted "gaps" in the cursor line and in floating windows when
+not using a transparent background colour.
+
+If you are using Nvim v0.9+, paragon works around this issue by resolving and
+removing `ctermbg` and `guibg` attributes from all highlight groups that link to
+`Normal` when sourced.
+
+However, if this workaround is causing problems, it can be disabled by adding
+the following before the `:colorscheme` command:
+
+```
+" Vim script:
+let g:paragon_nvim_priority_fix = 0
+
+-- Neovim Lua:
+vim.g.paragon_nvim_priority_fix = false
+```
 
 ## What's with the name?
 

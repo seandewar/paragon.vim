@@ -31,8 +31,8 @@ if &background ==# 'dark'
     let s:bg_most_subtle   = #{gui: '#1a1a1a', cterm: 234}
     let s:bg               = #{gui: '#0a0a0a', cterm: 232}
 
-    let s:bg_active   = s:bg_subtle
-    let s:bg_inactive = s:bg_most_subtle
+    let s:bg_active        = s:bg_subtle
+    let s:bg_inactive      = s:bg_most_subtle
 else
     let s:blue             = #{gui: '#2f2fdf', cterm: 20 }
     let s:orange           = #{gui: '#c24a0f', cterm: 130}
@@ -47,8 +47,8 @@ else
     let s:bg_most_subtle   = #{gui: '#e5e5e5', cterm: 254}
     let s:bg               = #{gui: '#f5f5f5', cterm: 255}
 
-    let s:bg_active   = s:bg_most_subtle
-    let s:bg_inactive = s:bg_subtle
+    let s:bg_active        = s:bg_most_subtle
+    let s:bg_inactive      = s:bg_subtle
 endif
 
 " https://github.com/noahfrederick/vim-hemisu/
@@ -75,7 +75,7 @@ if &background !=# s:background
     let &background = s:background
 endif
 
-" Syntax Highlights: (ordered as in `:h group-name`) {{{1
+" Syntax Highlights: {{{1
 call s:h('Comment', #{fg: s:norm_most_subtle, gui: 'italic', cterm: 'italic'})
 
 call s:h('Constant', #{fg: s:blue})
@@ -198,7 +198,8 @@ highlight! link javaScriptValue Constant
 highlight! link luaFunction Keyword
 
 " matchparen.vim
-call s:h('MatchParen', #{fg: s:norm, bg: s:norm_most_subtle})
+call s:h('MatchParen', #{fg: s:orange, bg: s:bg_active,
+            \            gui: 'bold', cterm: 'bold'})
 
 " rust.vim
 highlight! link rustLifetime StorageClass
@@ -310,5 +311,23 @@ highlight! link @lsp.mod.attribute @attribute
 highlight! link @lsp.typemod.variable.constant @constant
 
 call s:h('LspSignatureActiveParameter', #{fg: s:blue})
+
+" Work around an Nvim bug when linking to Normal: neovim/neovim#9019.
+if exists('*nvim_get_hl') && get(g:, 'paragon_nvim_priority_fix', 1)
+            \ && !get(g:, 'paragon_transparent_bg')
+lua << EOF
+local api = vim.api
+
+for name, def in pairs(api.nvim_get_hl(0, {})) do
+    if def.link == "Normal" then
+        -- Remove bg attributes from the resolved definition.
+        def = api.nvim_get_hl(0, {name = name, link = false})
+        def.bg = nil
+        def.ctermbg = nil
+        api.nvim_set_hl(0, name, def)
+    end
+end
+EOF
+endif
 
 " vim: et tw=80 sw=4
