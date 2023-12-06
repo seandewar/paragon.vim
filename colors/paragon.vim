@@ -223,6 +223,10 @@ highlight! link zigVarDecl Keyword
 " Neovim: {{{1
 if !has('nvim') | finish | endif
 
+" New default colors in 0.10 no longer have links to some groups, restore them
+highlight! link WinSeparator VertSplit
+highlight! link NormalFloat Pmenu
+
 highlight! link FloatTitle NormalFloat
 call s:h('FloatBorder', #{fg: s:norm_most_subtle, bg: s:bg_most_subtle})
 
