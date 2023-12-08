@@ -1,5 +1,5 @@
 " Name:       paragon.vim
-" Version:    0.4.0
+" Version:    0.4
 " Maintainer: Sean Dewar <https://github.com/seandewar>
 " License:    The MIT License (MIT)
 "
@@ -237,6 +237,14 @@ call s:h('DiagnosticWarn', #{fg: s:yellow})
 call s:h('DiagnosticHint', #{fg: s:blue})
 highlight! link DiagnosticInfo Normal
 
+" New default DiagnosticFloating* colors in 0.10 no longer link to Diagnostic*,
+" but instead define their own attributes; may be reverted later (neovim#26378)
+highlight! link DiagnosticFloatingOk DiagnosticOk
+highlight! link DiagnosticFloatingError DiagnosticError
+highlight! link DiagnosticFloatingWarn DiagnosticWarn
+highlight! link DiagnosticFloatingHint DiagnosticHint
+highlight! link DiagnosticFloatingInfo DiagnosticInfo
+
 call s:h('DiagnosticVirtualTextOk', #{fg: s:teal, bg: s:bg_most_subtle})
 call s:h('DiagnosticVirtualTextError', #{fg: s:red, bg: s:bg_most_subtle})
 call s:h('DiagnosticVirtualTextWarn', #{fg: s:yellow, bg: s:bg_most_subtle})
@@ -272,10 +280,12 @@ highlight! link @structure Type
 highlight! link @text.note Todo
 highlight! link @text.reference Tag
 highlight! link @type.qualifier Keyword
+highlight! link @variable Identifier
 highlight! link @variable.builtin Special
 
-highlight! link @label.help String
-
+" Overrides for specific languages
+highlight! link @label.vimdoc String
+highlight! link @parameter.vimdoc Special
 " Zig omg stop misusing these captures plz
 highlight! link @attribute.zig Keyword
 
