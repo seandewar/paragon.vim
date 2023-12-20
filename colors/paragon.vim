@@ -168,6 +168,7 @@ highlight! link TabLine StatusLineNC
 highlight! link TabLineSel StatusLine
 highlight! link TabLineFill TabLine
 
+call s:h('QuickFixLine', #{bg: s:bg_active})
 call s:h('WildMenu', #{fg: s:bg, bg: s:norm})
 
 call s:h('Pmenu', #{fg: s:norm, bg: s:bg_most_subtle})
