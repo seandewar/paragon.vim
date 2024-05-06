@@ -274,10 +274,11 @@ highlight! link @conceal Conceal
 highlight! link @constant.builtin Constant
 highlight! link @constant.comment SpecialComment
 highlight! link @function.macro @macro
-highlight! link @macro Identifier
 highlight! link @label Identifier
+highlight! link @macro Identifier
 highlight! link @storageclass.lifetime StorageClass
 highlight! link @structure Type
+highlight! link @tag Identifier
 highlight! link @text.note Todo
 highlight! link @text.reference Tag
 highlight! link @type.qualifier Keyword
@@ -286,6 +287,7 @@ highlight! link @variable.builtin Special
 
 " Overrides for specific languages
 highlight! link @label.vimdoc String
+highlight! link @markup.link.vimdoc Tag
 highlight! link @parameter.vimdoc Special
 " Zig omg stop misusing these captures plz
 highlight! link @attribute.zig Keyword
