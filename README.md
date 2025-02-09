@@ -10,7 +10,8 @@ _For those with high virtue._
 
 Paragon (like paramount), aims to highlight only the important things in code
 (such as keywords, literals, comments, etc.) while not looking too monochrome or
-like clown puke.
+like clown puke, borrowing some ideas from
+[Chinmay Dalal's alabaster port](https://sr.ht/~p00f/alabaster.nvim).
 
 For Neovim users, it also defines tree-sitter and semantic tokens highlights
 for the built-in LSP client (while still using minimal colours), with the

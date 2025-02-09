@@ -1,10 +1,13 @@
 " Name:       paragon.vim
-" Version:    0.4
+" Version:    0.5
 " Maintainer: Sean Dewar <https://github.com/seandewar>
 " License:    The MIT License (MIT)
 "
 " A minimal colour scheme for Vim and Neovim based on paramount:
 " https://github.com/owickstrom/vim-colors-paramount
+"
+" Also borrows some ideas from Chinmay Dalal's alabaster port:
+" https://sr.ht/~p00f/alabaster.nvim
 "
 " Unlike the name "paramount", "paragon" has no real meaning.
 " The name was chosen because it also begins with a "p".
@@ -16,40 +19,50 @@
 highlight clear
 let g:colors_name = 'paragon'
 
-let s:background = &background
 if &background ==# 'dark'
-    let s:blue             = #{gui: '#a3a3eb', cterm: 147}
-    let s:orange           = #{gui: '#d7af87', cterm: 180}
-    let s:red              = #{gui: '#d78787', cterm: 174}
-    let s:teal             = #{gui: '#5fd7af', cterm: 79 }
-    let s:yellow           = #{gui: '#d7d787', cterm: 186}
+    let s:accent0          = #{gui: '#a3a3eb', cterm: 147}
+    let s:accent1          = #{gui: '#ebc7a3', cterm: 223}
 
-    let s:norm             = #{gui: '#ffffff', cterm: 231}
-    let s:norm_subtle      = #{gui: '#dfdfdf', cterm: 252}
-    let s:norm_most_subtle = #{gui: '#bfbfbf', cterm: 247}
-    let s:bg_subtle        = #{gui: '#2a2a2a', cterm: 235}
-    let s:bg_most_subtle   = #{gui: '#1a1a1a', cterm: 234}
-    let s:bg               = #{gui: '#0a0a0a', cterm: 232}
+    let s:ok               = #{gui: '#69c5a7', cterm: 79}
+    let s:warn             = #{gui: '#faeb96', cterm: 229}
+    let s:bad              = #{gui: '#e58787', cterm: 174}
 
-    let s:bg_active        = s:bg_subtle
-    let s:bg_inactive      = s:bg_most_subtle
+    let s:fg0              = #{gui: '#dadada', cterm: 253}
+    let s:fg1              = #{gui: '#cacaca', cterm: 251}
+    let s:fg2              = #{gui: '#aaaaaa', cterm: 248}
+    let s:fg3              = #{gui: '#9c9c9c', cterm: 247}
+
+    let s:bg0              = #{gui: '#0c0c0c', cterm: 232}
+    let s:bg1              = #{gui: '#181818', cterm: 234}
+    let s:bg2              = #{gui: '#242424', cterm: 235}
+    let s:bg3              = #{gui: '#303030', cterm: 236}
+
+    let s:bg_on            = s:bg2
+    let s:bg_off           = s:bg1
 else
-    let s:blue             = #{gui: '#2f2fdf', cterm: 20 }
-    let s:orange           = #{gui: '#c24a0f', cterm: 130}
-    let s:red              = #{gui: '#d4312f', cterm: 203}
-    let s:teal             = #{gui: '#028157', cterm: 29 }
-    let s:yellow           = #{gui: '#a36118', cterm: 130}
+    let s:accent0          = #{gui: '#2626ae', cterm: 19}
+    let s:accent1          = #{gui: '#823d1d', cterm: 130}
 
-    let s:norm             = #{gui: '#000000', cterm: 16 }
-    let s:norm_subtle      = #{gui: '#202020', cterm: 236}
-    let s:norm_most_subtle = #{gui: '#404040', cterm: 59 }
-    let s:bg_subtle        = #{gui: '#d5d5d5', cterm: 188}
-    let s:bg_most_subtle   = #{gui: '#e5e5e5', cterm: 254}
-    let s:bg               = #{gui: '#f5f5f5', cterm: 255}
+    let s:ok               = #{gui: '#005b44', cterm: 23}
+    let s:warn             = #{gui: '#856c00', cterm: 94}
+    let s:bad              = #{gui: '#9b2323', cterm: 124}
 
-    let s:bg_active        = s:bg_most_subtle
-    let s:bg_inactive      = s:bg_subtle
+    let s:fg0              = #{gui: '#2f2f2f', cterm: 236}
+    let s:fg1              = #{gui: '#232323', cterm: 235}
+    let s:fg2              = #{gui: '#464646', cterm: 238}
+    let s:fg3              = #{gui: '#515151', cterm: 239}
+
+    let s:bg0              = #{gui: '#f2f2f2', cterm: 231}
+    let s:bg1              = #{gui: '#e7e7e7', cterm: 254}
+    let s:bg2              = #{gui: '#d9d9d9', cterm: 253}
+    let s:bg3              = #{gui: '#c8c8c8', cterm: 251}
+
+    let s:bg_on            = s:bg1
+    let s:bg_off           = s:bg2
 endif
+
+let s:accent_sel           = s:accent1
+let s:accent_unsel         = s:accent0
 
 " https://github.com/noahfrederick/vim-hemisu/
 function! s:h(group, style) abort
@@ -64,39 +77,33 @@ function! s:h(group, style) abort
 endfunction
 
 if get(g:, 'paragon_transparent_bg')
-    call s:h('Normal', #{fg: s:norm})
+    call s:h('Normal', #{fg: s:fg0})
 else
-    call s:h('Normal', #{fg: s:norm, bg: s:bg})
-endif
-
-" Restore &background's value in case changing Normal changed &background.
-" (`:help :hi-normal-cterm`)
-if &background !=# s:background
-    let &background = s:background
+    call s:h('Normal', #{fg: s:fg0, bg: s:bg0})
 endif
 
 " Syntax Highlights: {{{1
-call s:h('Comment', #{fg: s:norm_most_subtle, gui: 'italic', cterm: 'italic'})
+call s:h('Comment', #{fg: s:accent1})
 
-call s:h('Constant', #{fg: s:blue})
-highlight! link String Constant
-highlight! link Character Constant
-highlight! link Number Constant
+highlight! link Constant Identifier
 highlight! link Boolean Constant
-highlight! link Float Constant
+call s:h('Number', #{fg: s:accent0})
+highlight! link Float Number
+call s:h('Character', #{fg: s:accent0})
+highlight! link String Character
 
 highlight! link Identifier Normal
 highlight! link Function Identifier
 
-call s:h('Keyword', #{fg: s:norm_subtle})
+call s:h('Keyword', #{fg: s:fg1})
 highlight! link Conditonal Keyword
 highlight! link Repeat Keyword
-highlight! link Operator Keyword
 highlight! link Statement Keyword
 highlight! link Exception Keyword
 highlight! link Label Keyword
+call s:h('Operator', #{fg: s:fg2})
 
-call s:h('PreProc', #{fg: s:norm_subtle})
+highlight! link PreProc Identifier
 highlight! link Include PreProc
 highlight! link Define PreProc
 highlight! link PreCondit PreProc
@@ -106,72 +113,72 @@ highlight! link StorageClass Keyword
 highlight! link Structure Keyword
 highlight! link Typedef Type
 
-call s:h('Special', #{fg: s:norm_subtle})
-call s:h('SpecialChar', #{fg: s:blue, gui: 'bold', cterm: 'bold'})
-call s:h('Tag', #{fg: s:orange})
+call s:h('Special', #{fg: s:fg1})
+call s:h('SpecialChar', #{fg: s:accent0, gui: 'bold', cterm: 'bold'})
 highlight! link Delimiter Special
-call s:h('SpecialComment', #{fg: s:norm_subtle, gui: 'italic', cterm: 'italic'})
-call s:h('Debug', #{fg: s:norm_subtle})
+call s:h('SpecialComment', #{fg: s:accent1, gui: 'italic', cterm: 'italic'})
+call s:h('Debug', #{fg: s:fg1})
 
-call s:h('Underlined', #{fg: s:norm, gui: 'underline', cterm: 'underline'})
-call s:h('Error', #{fg: s:red, gui: 'bold', cterm: 'bold'})
+call s:h('Underlined', #{gui: 'underline', cterm: 'underline'})
+highlight! link Tag Underlined
+call s:h('Error', #{fg: s:bad, gui: 'bold', cterm: 'bold'})
 highlight! link Todo SpecialComment
 
 " Other Highlights: {{{1
-call s:h('NonText', #{fg: s:norm_most_subtle, bg: s:bg_most_subtle})
-call s:h('EndOfBuffer', #{fg: s:norm_most_subtle})
-call s:h('Ignore', #{fg: s:norm_most_subtle})
+call s:h('NonText', #{fg: s:fg3})
+highlight! link Folded NonText
+highlight! link EndOfBuffer NonText
+call s:h('Ignore', #{fg: s:fg3})
 highlight! link Conceal Ignore
 highlight! link Whitespace Ignore
-call s:h('SpecialKey', #{fg: s:norm_subtle, gui: 'bold', cterm: 'bold'})
+call s:h('SpecialKey', #{fg: s:fg1, gui: 'bold', cterm: 'bold'})
 
-call s:h('Visual', #{fg: s:bg, bg: s:norm_most_subtle})
-call s:h('VisualNOS', #{fg: s:norm, bg: s:norm_most_subtle})
+call s:h('Visual', #{fg: s:bg0, bg: s:fg1})
+call s:h('VisualNOS', #{fg: s:bg3, bg: s:fg3})
 
-call s:h('Search', #{fg: s:bg, bg: s:blue})
-call s:h('IncSearch', #{fg: s:bg, bg: s:orange})
+call s:h('Search', #{fg: s:bg0, bg: s:accent_unsel})
+call s:h('IncSearch', #{fg: s:bg0, bg: s:accent_sel})
 highlight! link CurSearch IncSearch
 
-call s:h('DiffAdd', #{fg: s:bg, bg: s:teal})
-call s:h('DiffDelete', #{fg: s:bg, bg: s:red})
-call s:h('DiffText', #{fg: s:bg, bg: s:yellow})
-call s:h('DiffChange', #{bg: s:bg_subtle})
+call s:h('DiffAdd', #{fg: s:bg0, bg: s:ok})
+call s:h('DiffDelete', #{fg: s:bg0, bg: s:bad})
+call s:h('DiffText', #{fg: s:bg0, bg: s:warn})
+call s:h('DiffChange', #{bg: s:bg1})
 
-call s:h('SpellBad', #{gui: 'undercurl', cterm: 'underline', sp: s:red})
-call s:h('SpellCap', #{gui: 'undercurl', cterm: 'underline', sp: s:yellow})
-call s:h('SpellRare', #{gui: 'undercurl', cterm: 'underline', sp: s:teal})
-call s:h('SpellLocal', #{gui: 'undercurl', cterm: 'underline', sp: s:norm})
+call s:h('SpellBad', #{gui: 'undercurl', cterm: 'underline', sp: s:bad})
+call s:h('SpellCap', #{gui: 'undercurl', cterm: 'underline', sp: s:warn})
+call s:h('SpellRare', #{gui: 'undercurl', cterm: 'underline', sp: s:ok})
+call s:h('SpellLocal', #{gui: 'undercurl', cterm: 'underline', sp: s:fg0})
 
-call s:h('ErrorMsg', #{fg: s:red})
-call s:h('WarningMsg', #{fg: s:yellow})
-call s:h('MoreMsg', #{fg: s:norm_subtle, gui: 'bold', cterm: 'bold'})
+call s:h('ErrorMsg', #{fg: s:bad})
+call s:h('WarningMsg', #{fg: s:warn})
+call s:h('MoreMsg', #{fg: s:accent0})
 highlight! link ModeMsg MoreMsg
-call s:h('Title', #{fg: s:norm_subtle})
-call s:h('Question', #{fg: s:teal})
-call s:h('Directory', #{fg: s:blue})
+call s:h('Title', #{fg: s:fg1})
+call s:h('Question', #{fg: s:accent1})
+call s:h('Directory', #{fg: s:accent0})
 
-call s:h('CursorLine', #{bg: s:bg_most_subtle})
+call s:h('CursorLine', #{bg: s:bg1})
 highlight! link CursorColumn CursorLine
-call s:h('CursorLineNr', #{fg: s:blue, bg: s:bg_most_subtle})
-call s:h('LineNr', #{fg: s:norm_most_subtle})
+call s:h('ColorColumn', #{bg: s:bg2})
 
-call s:h('ColorColumn', #{bg: s:bg_subtle})
-call s:h('SignColumn', #{fg: s:blue})
-call s:h('FoldColumn', #{fg: s:norm_most_subtle})
-call s:h('Folded', #{fg: s:norm_subtle})
+call s:h('CursorLineNr', #{fg: s:fg0, bg: s:bg1})
+call s:h('LineNr', #{fg: s:fg3})
+call s:h('SignColumn', #{fg: s:accent0})
+call s:h('FoldColumn', #{fg: s:fg3})
 
-call s:h('StatusLine', #{bg: s:bg_active})
-call s:h('StatusLineNC', #{fg: s:norm_subtle, bg: s:bg_inactive})
-call s:h('VertSplit', #{fg: s:bg_most_subtle})
+call s:h('StatusLine', #{fg: s:fg0, bg: s:bg_on})
+call s:h('StatusLineNC', #{fg: s:fg3, bg: s:bg_off})
+call s:h('VertSplit', #{fg: s:bg_off})
 
 highlight! link TabLine StatusLineNC
 highlight! link TabLineSel StatusLine
 highlight! link TabLineFill TabLine
 
-call s:h('QuickFixLine', #{bg: s:bg_active})
-call s:h('WildMenu', #{fg: s:bg, bg: s:norm})
+call s:h('QuickFixLine', #{bg: s:bg_on})
+call s:h('WildMenu', #{fg: s:bg0, bg: s:fg0})
 
-call s:h('Pmenu', #{fg: s:norm, bg: s:bg_most_subtle})
+call s:h('Pmenu', #{fg: s:fg0, bg: s:bg1})
 highlight! link PmenuSel Search
 highlight! link PmenuThumb Search
 highlight! link PmenuSbar Pmenu
@@ -181,9 +188,9 @@ highlight! link PmenuSbar Pmenu
 highlight! link cUserLabel Identifier
 
 " diff.vim
-call s:h('diffAdded', #{fg: s:teal})
-call s:h('diffRemoved', #{fg: s:red})
-call s:h('diffChanged', #{fg: s:yellow})
+call s:h('diffAdded', #{fg: s:ok})
+call s:h('diffRemoved', #{fg: s:bad})
+call s:h('diffChanged', #{fg: s:warn})
 
 " help.vim
 highlight! link helpHyperTextJump Tag
@@ -193,17 +200,15 @@ highlight! link helpURL Underlined
 highlight! link javaScriptFunction Keyword
 highlight! link javaScriptBraces Operator
 highlight! link javaScriptParens Operator
-highlight! link javaScriptValue Constant
 
 " lua.vim
 highlight! link luaFunction Keyword
 
 " matchparen.vim
-call s:h('MatchParen', #{fg: s:orange, bg: s:bg_active,
+call s:h('MatchParen', #{fg: s:accent_sel, bg: s:bg_on,
             \            gui: 'bold', cterm: 'bold'})
 
 " rust.vim
-highlight! link rustLifetime StorageClass
 highlight! link rustModPath Identifier
 highlight! link rustSelf Keyword
 
@@ -219,23 +224,24 @@ highlight! link zigEscape SpecialChar
 highlight! link zigMacro Keyword
 highlight! link zigMultilineStringDelimiter String
 highlight! link zigVarDecl Keyword
-" }}}
 
 " Neovim: {{{1
-if !has('nvim') | finish | endif
+if !has('nvim')
+    finish
+endif
 
 " New default colors in 0.10 no longer have links to some groups, restore them
 highlight! link WinSeparator VertSplit
 highlight! link NormalFloat Pmenu
 
 highlight! link FloatTitle NormalFloat
-call s:h('FloatBorder', #{fg: s:norm_most_subtle, bg: s:bg_most_subtle})
+call s:h('FloatBorder', #{fg: s:fg2, bg: s:bg1})
 
 " vim.diagnostic
-call s:h('DiagnosticOk', #{fg: s:teal})
-call s:h('DiagnosticError', #{fg: s:red})
-call s:h('DiagnosticWarn', #{fg: s:yellow})
-call s:h('DiagnosticHint', #{fg: s:blue})
+call s:h('DiagnosticOk', #{fg: s:ok})
+call s:h('DiagnosticError', #{fg: s:bad})
+call s:h('DiagnosticWarn', #{fg: s:warn})
+call s:h('DiagnosticHint', #{fg: s:accent0})
 highlight! link DiagnosticInfo Normal
 
 " New default DiagnosticFloating* colors in 0.10 no longer link to Diagnostic*,
@@ -246,88 +252,71 @@ highlight! link DiagnosticFloatingWarn DiagnosticWarn
 highlight! link DiagnosticFloatingHint DiagnosticHint
 highlight! link DiagnosticFloatingInfo DiagnosticInfo
 
-call s:h('DiagnosticVirtualTextOk', #{fg: s:teal, bg: s:bg_most_subtle})
-call s:h('DiagnosticVirtualTextError', #{fg: s:red, bg: s:bg_most_subtle})
-call s:h('DiagnosticVirtualTextWarn', #{fg: s:yellow, bg: s:bg_most_subtle})
-call s:h('DiagnosticVirtualTextHint', #{fg: s:blue, bg: s:bg_most_subtle})
-call s:h('DiagnosticVirtualTextInfo', #{fg: s:norm, bg: s:bg_most_subtle})
-
 call s:h('DiagnosticUnderlineOk', #{gui: 'undercurl', cterm: 'underline',
-            \                       sp: s:teal})
+            \                       sp: s:ok})
 call s:h('DiagnosticUnderlineError', #{gui: 'undercurl', cterm: 'underline',
-            \                          sp: s:red})
+            \                          sp: s:bad})
 call s:h('DiagnosticUnderlineWarn', #{gui: 'undercurl', cterm: 'underline',
-            \                         sp: s:yellow})
+            \                         sp: s:warn})
 call s:h('DiagnosticUnderlineHint', #{gui: 'undercurl', cterm: 'underline',
-            \                         sp: s:blue})
+            \                         sp: s:accent0})
 call s:h('DiagnosticUnderlineInfo', #{gui: 'undercurl', cterm: 'underline',
-            \                         sp: s:norm})
+            \                         sp: s:fg0})
 
 call s:h('DiagnosticUnnecessary', #{gui: 'undercurl', cterm: 'underline',
-            \                       sp: s:norm})
+            \                       sp: s:fg3})
 call s:h('DiagnosticDeprecated', #{gui: 'strikethrough', cterm: 'strikethrough',
-            \                      sp: s:norm})
+            \                      sp: s:fg3})
 
 " vim.treesitter
-highlight! link @attribute PreProc
 highlight! link @conceal Conceal
-highlight! link @constant.builtin Constant
-highlight! link @constant.comment SpecialComment
-highlight! link @function.macro @macro
+highlight! link @constructor Identifier
+highlight! link @function.macro PreProc
 highlight! link @label Identifier
-highlight! link @macro Identifier
-highlight! link @storageclass.lifetime StorageClass
-highlight! link @structure Type
+highlight! link @module Identifier
 highlight! link @tag Identifier
-highlight! link @text.note Todo
-highlight! link @text.reference Tag
-highlight! link @type.qualifier Keyword
+highlight! link @tag.delimiter @punctuation.delimiter
 highlight! link @variable Identifier
-highlight! link @variable.builtin Special
+
+call s:h('@comment.error', #{fg: s:bad, gui: 'italic', cterm: 'italic'})
+call s:h('@comment.warning', #{fg: s:warn, gui: 'italic', cterm: 'italic'})
+highlight! link @comment.note SpecialComment
+
+" Change default link away from SpecialChar; reverse that for special characters
+" *in constants*
+highlight! link @character.special Special
+
+highlight! link @string.documentation Comment
+highlight! link @string.escape SpecialChar
+" These use SpecialChar by default, which is too noisy.
+highlight! link @string.special String
 
 " Overrides for specific languages
+highlight! link @constant.comment SpecialComment
+highlight! link @number.comment Comment
+highlight! link @punctuation.bracket.comment Comment
+highlight! link @punctuation.delimiter.comment Comment
 highlight! link @label.vimdoc String
 highlight! link @markup.link.vimdoc Tag
-highlight! link @parameter.vimdoc Special
-" Zig omg stop misusing these captures plz
-highlight! link @attribute.zig Keyword
+highlight! link @variable.parameter.vimdoc Special
 
-" vim.lsp
-" These are linked to tree-sitter groups where applicable to make things easier.
-" TODO: These should probably be nocombine.
-highlight! link @lsp.type.boolean @boolean
-highlight! link @lsp.type.builtinType @type
+" vim.lsp; linked to tree-sitter groups where applicable to make things easier
+" rust-analyzer
+highlight! link @lsp.type.builtinAttribute @attribute.builtin
+highlight! link @lsp.type.builtinType @type.builtin
 highlight! link @lsp.type.character @character
-highlight! link @lsp.type.class @type
-highlight! link @lsp.type.decorator @function
-highlight! link @lsp.type.enum @type
-highlight! link @lsp.type.enumMember @constant
 highlight! link @lsp.type.escapeSequence @string.escape
-highlight! link @lsp.type.function @function
 highlight! link @lsp.type.generic Normal
-highlight! link @lsp.type.interface @type
-highlight! link @lsp.type.keyword @keyword
-highlight! link @lsp.type.lifetime @storageclass.lifetime
-highlight! link @lsp.type.macro @macro
-highlight! link @lsp.type.method @method
-highlight! link @lsp.type.namespace @namespace
-highlight! link @lsp.type.number @constant
-highlight! link @lsp.type.operator @operator
-highlight! link @lsp.type.parameter @parameter
-highlight! link @lsp.type.property @property
+highlight! link @lsp.type.macro Macro
 highlight! link @lsp.type.selfKeyword @keyword
-highlight! link @lsp.type.selfTypeKeyword @keyword
-highlight! link @lsp.type.string @string
-highlight! link @lsp.type.struct @structure
-highlight! link @lsp.type.type @type
+highlight! link @lsp.type.selfTypeKeyword @type.builtin
 highlight! link @lsp.type.typeAlias @type
-highlight! link @lsp.type.typeParameter @type.definition
-highlight! link @lsp.type.variable @variable
 
-highlight! link @lsp.mod.attribute @attribute
-highlight! link @lsp.typemod.variable.constant @constant
-
-call s:h('LspSignatureActiveParameter', #{fg: s:blue})
+call s:h('LspSignatureActiveParameter', #{bg: s:bg1})
+highlight! link LspReferenceText LspSignatureActiveParameter
+highlight! link LspReferenceRead LspSignatureActiveParameter
+highlight! link LspReferenceWrite LspSignatureActiveParameter
+highlight! link LspReferenceTarget LspSignatureActiveParameter
 
 " Work around an Nvim bug when linking to Normal: neovim/neovim#9019.
 if exists('*nvim_get_hl') && get(g:, 'paragon_nvim_priority_fix', 1)
