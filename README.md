@@ -7,8 +7,8 @@ also taking inspiration from
 
 _For those with high virtue._
 
-![Dark mode](https://github.com/seandewar/paragon.vim/assets/6256228/a9df29e6-2ea9-4f3c-91d0-74f4597f21e4)
-![Light mode](https://github.com/seandewar/paragon.vim/assets/6256228/a28053f1-046a-43ff-b965-80674f0cdfb9)
+![Dark mode](https://github.com/user-attachments/assets/3a93509e-c47c-46db-b08f-d9a497e61326)
+![Light mode](https://github.com/user-attachments/assets/fade3d22-801e-44b9-9437-4ecfd6e97bb4)
 
 Paragon primarily only highlights code comments and literals, selections, diff
 changes and status messages. To avoid code that looks like clown puke (and
