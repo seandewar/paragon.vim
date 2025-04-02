@@ -24,9 +24,9 @@ if &background ==# 'dark'
     let s:accent0          = #{gui: '#ababed', cterm: 147}
     let s:accent1          = #{gui: '#ebc7a3', cterm: 223}
 
-    let s:ok               = #{gui: '#69c5a7', cterm: 79}
-    let s:warn             = #{gui: '#faeb96', cterm: 229}
-    let s:bad              = #{gui: '#e58787', cterm: 174}
+    let s:red              = #{gui: '#e58787', cterm: 174}
+    let s:yellow           = #{gui: '#faeb96', cterm: 229}
+    let s:green            = #{gui: '#69c5a7', cterm: 79}
 
     let s:fg0              = #{gui: '#e2e2e2', cterm: 254}
     let s:fg1              = #{gui: '#dcdcdc', cterm: 253}
@@ -44,9 +44,9 @@ else
     let s:accent0          = #{gui: '#2424b0', cterm: 19}
     let s:accent1          = #{gui: '#753900', cterm: 130}
 
-    let s:ok               = #{gui: '#00523d', cterm: 23}
-    let s:warn             = #{gui: '#7a6400', cterm: 94}
-    let s:bad              = #{gui: '#8d2020', cterm: 88}
+    let s:red              = #{gui: '#8d2020', cterm: 88}
+    let s:yellow           = #{gui: '#7a6400', cterm: 94}
+    let s:green            = #{gui: '#00523d', cterm: 23}
 
     let s:fg0              = #{gui: '#1d1d1d', cterm: 233}
     let s:fg1              = #{gui: '#3d3d3d', cterm: 236}
@@ -97,14 +97,14 @@ highlight! link CursorIM Cursor
 highlight! link CursorColumn CursorLine
 call s:h('CursorLine', #{bg: s:bg1})
 call s:h('Directory', #{fg: s:accent0})
-call s:h('DiffAdd', #{fg: s:bg0, bg: s:ok})
+call s:h('DiffAdd', #{fg: s:bg0, bg: s:green})
 call s:h('DiffChange', #{bg: s:bg2})
-call s:h('DiffDelete', #{fg: s:bg0, bg: s:bad})
-call s:h('DiffText', #{fg: s:bg0, bg: s:warn})
+call s:h('DiffDelete', #{fg: s:bg0, bg: s:red})
+call s:h('DiffText', #{fg: s:bg0, bg: s:yellow})
 highlight! link DiffTextAdd DiffText
 call s:h('EndOfBuffer', #{fg: s:fg2})
 call s:h('TermCursor', #{gui: 'reverse', cterm: 'reverse'})
-call s:h('ErrorMsg', #{fg: s:bad})
+call s:h('ErrorMsg', #{fg: s:red})
 call s:h('VertSplit', #{fg: s:bg_off})  " Vim-only
 highlight! link WinSeparator VertSplit  " Nvim-only
 highlight! link Folded NonText
@@ -157,10 +157,10 @@ call s:h('QuickFixLine', #{bg: s:bg2})
 call s:h('Search', #{fg: s:bg0, bg: s:accent_unsel})
 highlight! link SnippetTabstop Visual  " Nvim-only
 call s:h('SpecialKey', #{fg: s:fg1, gui: 'bold', cterm: 'bold'})
-call s:h('SpellBad', #{gui: 'undercurl', cterm: 'underline', sp: s:bad})
-call s:h('SpellCap', #{gui: 'undercurl', cterm: 'underline', sp: s:warn})
+call s:h('SpellBad', #{gui: 'undercurl', cterm: 'underline', sp: s:red})
+call s:h('SpellCap', #{gui: 'undercurl', cterm: 'underline', sp: s:yellow})
 call s:h('SpellLocal', #{gui: 'undercurl', cterm: 'underline', sp: s:fg0})
-call s:h('SpellRare', #{gui: 'undercurl', cterm: 'underline', sp: s:ok})
+call s:h('SpellRare', #{gui: 'undercurl', cterm: 'underline', sp: s:green})
 call s:h('StatusLine', #{fg: s:fg0, bg: s:bg_on})
 call s:h('StatusLineNC', #{fg: s:fg2, bg: s:bg_off})
 highlight! link StatusLineTerm StatusLine
@@ -171,7 +171,7 @@ highlight! link TabLineSel StatusLine
 call s:h('Title', #{gui: 'bold', cterm: 'bold'})
 call s:h('Visual', #{fg: s:bg0, bg: s:fg0})
 call s:h('VisualNOS', #{fg: s:bg3, bg: s:fg2})
-call s:h('WarningMsg', #{fg: s:warn})
+call s:h('WarningMsg', #{fg: s:yellow})
 highlight! link Whitespace Ignore  " Nvim-only
 highlight! link WildMenu CurSearch
 highlight! link WinBar StatusLine  " Nvim-only
@@ -213,11 +213,11 @@ call s:h('SpecialComment', #{fg: s:fg2, gui: 'bold', cterm: 'bold'})
 highlight! link Debug Statement
 call s:h('Underlined', #{gui: 'underline', cterm: 'underline'})
 call s:h('Ignore', #{fg: s:fg2})
-call s:h('Error', #{fg: s:bad, gui: 'bold', cterm: 'bold'})
+call s:h('Error', #{fg: s:red})
 highlight! link Todo SpecialComment
-call s:h('Added', #{fg: s:ok})
-call s:h('Changed', #{fg: s:warn})
-call s:h('Removed', #{fg: s:bad})
+call s:h('Added', #{fg: s:green})
+call s:h('Changed', #{fg: s:yellow})
+call s:h('Removed', #{fg: s:red})
 
 " Plugin highlight overrides {{{1
 "
@@ -261,28 +261,25 @@ if !has('nvim')
 endif
 
 " Neovim diagnostic highlights (:help diagnostic-highlights) {{{1
-call s:h('DiagnosticError', #{fg: s:bad})
-call s:h('DiagnosticWarn', #{fg: s:warn})
+call s:h('DiagnosticError', #{fg: s:red})
+call s:h('DiagnosticWarn', #{fg: s:yellow})
 highlight! link DiagnosticInfo Normal
 call s:h('DiagnosticHint', #{fg: s:accent0})
-call s:h('DiagnosticOk', #{fg: s:ok})
+call s:h('DiagnosticOk', #{fg: s:green})
 
-call s:h('DiagnosticVirtualTextError', #{fg: s:bad, bg: s:bg1})
-call s:h('DiagnosticVirtualTextWarn', #{fg: s:warn, bg: s:bg1})
+call s:h('DiagnosticVirtualTextError', #{fg: s:red, bg: s:bg1})
+call s:h('DiagnosticVirtualTextWarn', #{fg: s:yellow, bg: s:bg1})
 call s:h('DiagnosticVirtualTextInfo', #{fg: s:fg0, bg: s:bg1})
 call s:h('DiagnosticVirtualTextHint', #{fg: s:accent0, bg: s:bg1})
-call s:h('DiagnosticVirtualTextOk', #{fg: s:ok, bg: s:bg1})
+call s:h('DiagnosticVirtualTextOk', #{fg: s:green, bg: s:bg1})
 
-call s:h('DiagnosticUnderlineError', #{gui: 'undercurl', cterm: 'underline',
-            \                          sp: s:bad})
-call s:h('DiagnosticUnderlineWarn', #{gui: 'undercurl', cterm: 'underline',
-            \                         sp: s:warn})
-call s:h('DiagnosticUnderlineInfo', #{gui: 'undercurl', cterm: 'underline',
-            \                         sp: s:fg0})
-call s:h('DiagnosticUnderlineHint', #{gui: 'undercurl', cterm: 'underline',
-            \                         sp: s:accent0})
-call s:h('DiagnosticUnderlineOk', #{gui: 'undercurl', cterm: 'underline',
-            \                       sp: s:ok})
+" Previously these used undercurls, but it's too noisy when diagnostics span
+" large blocks.
+call s:h('DiagnosticUnderlineError', #{fg: s:red})
+call s:h('DiagnosticUnderlineWarn', #{fg: s:yellow})
+highlight clear DiagnosticUnderlineInfo
+highlight clear DiagnosticUnderlineHint
+highlight clear DiagnosticUnderlineOk
 
 highlight! link DiagnosticFloatingError DiagnosticError
 highlight! link DiagnosticFloatingWarn DiagnosticWarn
@@ -297,8 +294,7 @@ highlight! link DiagnosticSignOk DiagnosticOk
 
 call s:h('DiagnosticDeprecated', #{gui: 'strikethrough', cterm: 'strikethrough',
             \                      sp: s:fg2})
-call s:h('DiagnosticUnnecessary', #{gui: 'undercurl', cterm: 'underline',
-            \                       sp: s:fg2})
+call s:h('DiagnosticUnnecessary', #{bg: s:bg1})
 
 " Neovim tree-sitter highlights (:help treesitter-highlight-groups) {{{1
 highlight! link @variable Identifier
@@ -376,8 +372,8 @@ highlight! link @punctuation.special @punctuation
 highlight! link @comment Comment
 highlight! link @comment.documentation @comment
 
-call s:h('@comment.error', #{fg: s:bad, gui: 'bold', cterm: 'bold'})
-call s:h('@comment.warning', #{fg: s:warn, gui: 'bold', cterm: 'bold'})
+call s:h('@comment.error', #{fg: s:red, gui: 'bold', cterm: 'bold'})
+call s:h('@comment.warning', #{fg: s:yellow, gui: 'bold', cterm: 'bold'})
 highlight! link @comment.todo SpecialComment
 highlight! link @comment.note SpecialComment
 
@@ -407,7 +403,7 @@ highlight clear @markup.raw
 highlight! link @markup.raw.block @markup.raw
 
 highlight clear @markup.list
-call s:h('@markup.list.checked', #{fg: s:ok})
+call s:h('@markup.list.checked', #{fg: s:green})
 highlight! link @markup.list.unchecked @markup.list
 
 highlight! link @diff.plus Added
