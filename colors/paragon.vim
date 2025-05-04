@@ -22,44 +22,42 @@ let g:colors_name = 'paragon'
 " Palette {{{1
 if &background ==# 'dark'
     let s:accent0          = #{gui: '#ababed', cterm: 147}
-    let s:accent1          = #{gui: '#ebc7a3', cterm: 223}
+    let s:accent1          = #{gui: '#ebccab', cterm: 223}
 
     let s:red              = #{gui: '#e58787', cterm: 174}
     let s:yellow           = #{gui: '#faeb96', cterm: 229}
     let s:green            = #{gui: '#69c5a7', cterm: 79}
 
-    let s:fg0              = #{gui: '#e2e2e2', cterm: 254}
-    let s:fg1              = #{gui: '#dcdcdc', cterm: 253}
-    let s:fg2              = #{gui: '#acacac', cterm: 145}
+    let s:fg0              = #{gui: '#e4e4e4', cterm: 254}
+    let s:fg1              = #{gui: '#c6c6c6', cterm: 251}
+    let s:fg2              = #{gui: '#949494', cterm: 246}
 
-    let s:bg0              = #{gui: '#151515', cterm: 233}
-    let s:bg1              = #{gui: '#212121', cterm: 235}
-    let s:bg2              = #{gui: '#2d2d2d', cterm: 236}
-    let s:bg3              = #{gui: '#393939', cterm: 237}
-    let s:bg_float         = #{gui: '#090909', cterm: 232}
-
-    let s:bg_on            = s:bg2
-    let s:bg_off           = s:bg1
+    let s:bg_float         = #{gui: '#080808', cterm: 232}
+    let s:bg_norm          = #{gui: '#121212', cterm: 233}
+    let s:bg0              = #{gui: '#1c1c1c', cterm: 234}
+    let s:bg1              = #{gui: '#262626', cterm: 235}
+    let s:bg2              = #{gui: '#303030', cterm: 236}
+    let s:bg_active        = #{gui: '#3a3a3a', cterm: 237}
+    let s:bg_inactive      = s:bg1
 else
     let s:accent0          = #{gui: '#2424b0', cterm: 19}
-    let s:accent1          = #{gui: '#753900', cterm: 130}
+    let s:accent1          = #{gui: '#90571d', cterm: 94}
 
     let s:red              = #{gui: '#8d2020', cterm: 88}
     let s:yellow           = #{gui: '#7a6400', cterm: 94}
     let s:green            = #{gui: '#00523d', cterm: 23}
 
-    let s:fg0              = #{gui: '#1d1d1d', cterm: 233}
-    let s:fg1              = #{gui: '#3d3d3d', cterm: 236}
-    let s:fg2              = #{gui: '#414141', cterm: 237}
+    let s:fg0              = #{gui: '#121212', cterm: 233}
+    let s:fg1              = #{gui: '#303030', cterm: 236}
+    let s:fg2              = #{gui: '#626262', cterm: 241}
 
-    let s:bg0              = #{gui: '#e4e4e4', cterm: 254}
-    let s:bg1              = #{gui: '#d7d7d7', cterm: 188}
-    let s:bg2              = #{gui: '#c7c7c7', cterm: 251}
-    let s:bg3              = #{gui: '#b7b7b7', cterm: 250}
     let s:bg_float         = #{gui: '#eeeeee', cterm: 255}
-
-    let s:bg_on            = s:bg1
-    let s:bg_off           = s:bg2
+    let s:bg_norm          = #{gui: '#e4e4e4', cterm: 254}
+    let s:bg0              = #{gui: '#dadada', cterm: 253}
+    let s:bg1              = #{gui: '#d0d0d0', cterm: 252}
+    let s:bg2              = #{gui: '#c6c6c6', cterm: 251}
+    let s:bg_active        = s:bg1
+    let s:bg_inactive      = #{gui: '#bcbcbc', cterm: 250}
 endif
 
 let s:accent_sel           = s:accent1
@@ -87,7 +85,7 @@ function! s:h(group, style) abort
 endfunction
 
 " Editor highlights (:help highlight-groups) {{{1
-call s:h('ColorColumn', #{bg: s:bg2})
+call s:h('ColorColumn', #{bg: s:bg1})
 highlight! link Conceal Ignore
 highlight! link CurSearch IncSearch
 call s:h('Cursor', #{fg: #{gui: 'bg', cterm: 'NONE'},
@@ -95,17 +93,17 @@ call s:h('Cursor', #{fg: #{gui: 'bg', cterm: 'NONE'},
 highlight! link lCursor Cursor
 highlight! link CursorIM Cursor
 highlight! link CursorColumn CursorLine
-call s:h('CursorLine', #{bg: s:bg1})
+call s:h('CursorLine', #{bg: s:bg0})
 call s:h('Directory', #{fg: s:accent0})
 call s:h('DiffAdd', #{fg: s:bg0, bg: s:green})
 call s:h('DiffChange', #{bg: s:bg2})
 call s:h('DiffDelete', #{fg: s:bg0, bg: s:red})
 call s:h('DiffText', #{fg: s:bg0, bg: s:yellow})
 highlight! link DiffTextAdd DiffText
-call s:h('EndOfBuffer', #{fg: s:fg2})
+highlight! link EndOfBuffer NonText
 call s:h('TermCursor', #{gui: 'reverse', cterm: 'reverse'})
 call s:h('ErrorMsg', #{fg: s:red})
-call s:h('VertSplit', #{fg: s:bg_off})  " Vim-only
+call s:h('VertSplit', #{fg: s:bg0})  " Vim-only
 highlight! link WinSeparator VertSplit  " Nvim-only
 highlight! link Folded NonText
 call s:h('FoldColumn', #{fg: s:fg2})
@@ -115,22 +113,22 @@ highlight! link Substitute Search  " Nvim-only
 call s:h('LineNr', #{fg: s:fg2})
 highlight! link LineNrAbove LineNr
 highlight! link LineNrBelow LineNr
-call s:h('CursorLineNr', #{fg: s:fg0, bg: s:bg1})
+call s:h('CursorLineNr', #{fg: s:fg0, bg: s:bg0})
 highlight! link CursorLineFold FoldColumn
 highlight! link CursorLineSign SignColumn
-call s:h('MatchParen', #{fg: s:accent_sel, bg: s:bg3,
+call s:h('MatchParen', #{fg: s:accent_sel, bg: s:bg_float,
             \            gui: 'bold', cterm: 'bold'})
 highlight! link MessageWindow WarningMsg  " Vim-only
 highlight! link ModeMsg Normal
 highlight clear MsgArea
 highlight! link MsgSeparator StatusLine  " Nvim-only
 call s:h('MoreMsg', #{fg: s:accent0})
-call s:h('NonText', #{fg: s:fg2, bg: s:bg1})
+call s:h('NonText', #{fg: s:fg2, gui: 'bold', cterm: 'bold'})
 
 if get(g:, 'paragon_transparent_bg')
     call s:h('Normal', #{fg: s:fg0})
 else
-    call s:h('Normal', #{fg: s:fg0, bg: s:bg0})
+    call s:h('Normal', #{fg: s:fg0, bg: s:bg_norm})
 endif
 
 call s:h('NormalFloat', #{fg: s:fg0, bg: s:bg_float})  " Nvim-only
@@ -138,15 +136,14 @@ call s:h('FloatBorder', #{fg: s:fg1, bg: s:bg_float})  " Nvim-only
 highlight! link FloatTitle NormalFloat  " Nvim-only
 highlight! link FloatFooter FloatTitle  " Nvim-only
 highlight clear NormalNC  " Nvim-only
-call s:h('Pmenu', #{fg: s:fg0, bg: s:bg1})
+call s:h('Pmenu', #{fg: s:fg0, bg: s:bg2})
 highlight! link PmenuSel CurSearch
 highlight! link PmenuKind Pmenu
 highlight! link PmenuKindSel PmenuSel
 highlight! link PmenuExtra Pmenu
 highlight! link PmenuExtraSel PmenuSel
 highlight! link PmenuSbar Pmenu
-highlight! link PmenuThumb Search
-call s:h('PmenuThumb', #{bg: s:bg3})
+call s:h('PmenuThumb', #{bg: s:fg2})
 call s:h('PmenuMatch', #{gui: 'bold', cterm: 'bold'})
 highlight! link PmenuMatchSel PmenuMatch
 highlight clear ComplMatchIns
@@ -161,8 +158,8 @@ call s:h('SpellBad', #{gui: 'undercurl', cterm: 'underline', sp: s:red})
 call s:h('SpellCap', #{gui: 'undercurl', cterm: 'underline', sp: s:yellow})
 call s:h('SpellLocal', #{gui: 'undercurl', cterm: 'underline', sp: s:fg0})
 call s:h('SpellRare', #{gui: 'undercurl', cterm: 'underline', sp: s:green})
-call s:h('StatusLine', #{fg: s:fg0, bg: s:bg_on})
-call s:h('StatusLineNC', #{fg: s:fg2, bg: s:bg_off})
+call s:h('StatusLine', #{fg: s:fg1, bg: s:bg_active})
+call s:h('StatusLineNC', #{fg: s:fg1, bg: s:bg_inactive})
 highlight! link StatusLineTerm StatusLine
 highlight! link StatusLineTermNC StatusLineNC
 highlight! link TabLine StatusLineNC
@@ -170,7 +167,7 @@ highlight! link TabLineFill TabLine
 highlight! link TabLineSel StatusLine
 call s:h('Title', #{gui: 'bold', cterm: 'bold'})
 call s:h('Visual', #{fg: s:bg0, bg: s:fg0})
-call s:h('VisualNOS', #{fg: s:bg3, bg: s:fg2})
+call s:h('VisualNOS', #{fg: s:bg2, bg: s:fg2})
 call s:h('WarningMsg', #{fg: s:yellow})
 highlight! link Whitespace Ignore  " Nvim-only
 highlight! link WildMenu CurSearch
@@ -242,6 +239,10 @@ highlight! link helpURL Underlined
 highlight! link pdfReference Underlined
 
 " vim.vim
+" If set, then user probably really wants strings highlighted in comments.
+if !exists('g:vimsyn_comment_strings')
+    highlight! link vimCommentString Comment
+endif
 highlight! link vimCommentTitle SpecialComment
 highlight! link vimEscape SpecialChar
 " Key notation
@@ -267,11 +268,13 @@ highlight! link DiagnosticInfo Normal
 call s:h('DiagnosticHint', #{fg: s:accent0})
 call s:h('DiagnosticOk', #{fg: s:green})
 
-call s:h('DiagnosticVirtualTextError', #{fg: s:red, bg: s:bg1})
-call s:h('DiagnosticVirtualTextWarn', #{fg: s:yellow, bg: s:bg1})
-call s:h('DiagnosticVirtualTextInfo', #{fg: s:fg0, bg: s:bg1})
-call s:h('DiagnosticVirtualTextHint', #{fg: s:accent0, bg: s:bg1})
-call s:h('DiagnosticVirtualTextOk', #{fg: s:green, bg: s:bg1})
+call s:h('DiagnosticVirtualTextError', #{fg: s:red, gui: 'bold', cterm: 'bold'})
+call s:h('DiagnosticVirtualTextWarn',
+            \ #{fg: s:yellow, gui: 'bold', cterm: 'bold'})
+call s:h('DiagnosticVirtualTextInfo', #{fg: s:fg0, gui: 'bold', cterm: 'bold'})
+call s:h('DiagnosticVirtualTextHint',
+            \ #{fg: s:accent0, gui: 'bold', cterm: 'bold'})
+call s:h('DiagnosticVirtualTextOk', #{fg: s:green, gui: 'bold', cterm: 'bold'})
 
 " Previously these used undercurls, but it's too noisy when diagnostics span
 " large blocks.
@@ -294,7 +297,7 @@ highlight! link DiagnosticSignOk DiagnosticOk
 
 call s:h('DiagnosticDeprecated', #{gui: 'strikethrough', cterm: 'strikethrough',
             \                      sp: s:fg2})
-call s:h('DiagnosticUnnecessary', #{bg: s:bg1})
+call s:h('DiagnosticUnnecessary', #{bg: s:bg2})
 
 " Neovim tree-sitter highlights (:help treesitter-highlight-groups) {{{1
 highlight! link @variable Identifier
