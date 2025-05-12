@@ -270,13 +270,24 @@ call s:h('DiagnosticVirtualTextHint',
             \ #{fg: s:accent0, gui: 'bold', cterm: 'bold'})
 call s:h('DiagnosticVirtualTextOk', #{fg: s:green, gui: 'bold', cterm: 'bold'})
 
-" Previously these used undercurls, but it's too noisy when diagnostics span
-" large blocks.
-call s:h('DiagnosticUnderlineError', #{fg: s:red})
-call s:h('DiagnosticUnderlineWarn', #{fg: s:yellow})
-highlight clear DiagnosticUnderlineInfo
-highlight clear DiagnosticUnderlineHint
-highlight clear DiagnosticUnderlineOk
+if get(g:, 'paragon_quiet_diagnostics', 0)
+    call s:h('DiagnosticUnderlineError', #{fg: s:red})
+    call s:h('DiagnosticUnderlineWarn', #{fg: s:yellow})
+    highlight clear DiagnosticUnderlineInfo
+    highlight clear DiagnosticUnderlineHint
+    highlight clear DiagnosticUnderlineOk
+else
+    call s:h('DiagnosticUnderlineError', #{gui: 'undercurl', cterm: 'underline',
+                \                          sp: s:red})
+    call s:h('DiagnosticUnderlineWarn', #{gui: 'undercurl', cterm: 'underline',
+                \                         sp: s:yellow})
+    call s:h('DiagnosticUnderlineInfo', #{gui: 'undercurl', cterm: 'underline',
+                \                         sp: s:fg0})
+    call s:h('DiagnosticUnderlineHint', #{gui: 'undercurl', cterm: 'underline',
+                \                         sp: s:accent0})
+    call s:h('DiagnosticUnderlineOk', #{gui: 'undercurl', cterm: 'underline',
+                \                       sp: s:green})
+endif
 
 highlight! link DiagnosticFloatingError DiagnosticError
 highlight! link DiagnosticFloatingWarn DiagnosticWarn
@@ -291,7 +302,13 @@ highlight! link DiagnosticSignOk DiagnosticOk
 
 call s:h('DiagnosticDeprecated', #{gui: 'strikethrough', cterm: 'strikethrough',
             \                      sp: s:fg2})
-call s:h('DiagnosticUnnecessary', #{bg: s:bg2})
+
+if get(g:, 'paragon_quiet_diagnostics', 0)
+    call s:h('DiagnosticUnnecessary', #{bg: s:bg2})
+else
+    call s:h('DiagnosticUnnecessary', #{gui: 'undercurl', cterm: 'underline',
+                \                       sp: s:fg2})
+endif
 
 " Neovim tree-sitter highlights (:help treesitter-highlight-groups) {{{1
 highlight! link @variable Identifier
