@@ -1,5 +1,5 @@
 " Name:       paragon.vim
-" Version:    0.5
+" Version:    0.6
 " Maintainer: Sean Dewar <https://github.com/seandewar>
 " License:    The MIT License (MIT)
 "
