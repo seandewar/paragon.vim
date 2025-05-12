@@ -7,8 +7,8 @@ also taking inspiration from
 
 _For those with high virtue._
 
-![Dark mode](https://github.com/user-attachments/assets/3a93509e-c47c-46db-b08f-d9a497e61326)
-![Light mode](https://github.com/user-attachments/assets/fade3d22-801e-44b9-9437-4ecfd6e97bb4)
+![Dark mode](https://github.com/user-attachments/assets/43bcdb21-7f0d-468e-b106-69dc140f16dc)
+![Light mode](https://github.com/user-attachments/assets/486091a7-1518-4aa6-88a5-dab35a164538)
 
 Paragon primarily only highlights code comments and literals, selections, diff
 changes and status messages. To avoid code that looks like clown puke (and
@@ -38,10 +38,13 @@ following **before** `:colorscheme paragon`:
 
 ```
 " Vim script:
-let g:paragon_transparent_bg = 1
+autocmd ColorScheme paragon highlight Normal guibg=NONE ctermbg=NONE
 
 -- Neovim Lua:
-vim.g.paragon_transparent_bg = true
+vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "paragon",
+    command = "highlight CursorLine guibg=NONE ctermbg=NONE",
+})
 ```
 
 If you dislike some highlights, feel free to override them in a `ColorScheme`

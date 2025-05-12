@@ -124,13 +124,7 @@ highlight clear MsgArea
 highlight! link MsgSeparator StatusLine  " Nvim-only
 call s:h('MoreMsg', #{fg: s:accent0})
 call s:h('NonText', #{fg: s:fg2, gui: 'bold', cterm: 'bold'})
-
-if get(g:, 'paragon_transparent_bg')
-    call s:h('Normal', #{fg: s:fg0})
-else
-    call s:h('Normal', #{fg: s:fg0, bg: s:bg_norm})
-endif
-
+call s:h('Normal', #{fg: s:fg0, bg: s:bg_norm})
 call s:h('NormalFloat', #{fg: s:fg0, bg: s:bg_float})  " Nvim-only
 call s:h('FloatBorder', #{fg: s:fg1, bg: s:bg_float})  " Nvim-only
 highlight! link FloatTitle NormalFloat  " Nvim-only
@@ -480,7 +474,6 @@ highlight! link LspSignatureActiveParameter LspReferenceText
 
 " Neovim workaround for "linking to Normal" bug (neovim/neovim#9019) {{{1
 if exists('*nvim_get_hl') && get(g:, 'paragon_nvim_priority_fix', 1)
-            \ && !get(g:, 'paragon_transparent_bg')
 lua << EOF
 local api = vim.api
 
