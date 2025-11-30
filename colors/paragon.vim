@@ -179,7 +179,7 @@ highlight! link Float Number
 call s:h('Identifier', #{fg: s:fg0})
 highlight! link Function Identifier
 highlight! link Statement Keyword
-highlight! link Conditonal Keyword
+highlight! link Conditional Keyword
 highlight! link Repeat Keyword
 highlight! link Label Special
 call s:h('Operator', #{fg: s:fg0})
