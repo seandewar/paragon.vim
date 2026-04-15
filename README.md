@@ -1,5 +1,10 @@
 # paragon
 
+**Archival notice**: I now use a Neovim-only colour scheme that I maintain directly in [my dotfiles](https://github.com/seandewar/dotfiles).  
+As I'm not expecting to update paragon anymore, I've archived the repository.
+
+---
+
 My personal minimalistic Vim/Neovim colour scheme based on
 [paramount](https://github.com/owickstrom/vim-colors-paramount),
 also taking inspiration from
